@@ -21,11 +21,11 @@ const usersSchema = new mongoose.Schema({
   },
   dob: {
     type: Date,
-    default: new Date(),
+    default: new Date().toDateString(),
   },
   gender: {
-    type: Number,
-    default: 0,
+    type: String,
+    default: "male",
   },
   image: {
     type: String,

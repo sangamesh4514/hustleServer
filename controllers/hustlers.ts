@@ -45,18 +45,24 @@ export const createHustler = async (req: any, res: any) => {
   try {
     const user: any = await users.findOne({ userId });
     if (user == null) {
-      throw "No such user to register as Hustler!";
+      res.status(404).send("No such user to register as a hustler!");
     } else {
-      const hustler = {
-        ...user._doc,
-        ...req.body,
-        userId: userId,
-        type: 1,
-      };
-      const newHustler = new hustlers(hustler);
-      await newHustler.save();
-      await users.findOneAndDelete({ userId });
-      res.status(200).send("Hustler registered successfully!");
+      const { userName } = req.body;
+      const oldHustler: any = await hustlers.findOne({ userName });
+      if (oldHustler == null) {
+        const hustler = {
+          ...user._doc,
+          ...req.body,
+          userId: userId,
+          type: 1,
+        };
+        const newHustler = new hustlers(hustler);
+        await newHustler.save();
+        await users.findOneAndDelete({ userId });
+        res.status(200).send(newHustler);
+      } else {
+        res.status(400).send("UserName already Exists!");
+      }
     }
   } catch (error) {
     throw error;

@@ -1,4 +1,5 @@
 import users from "./../models/users";
+import hustlers from "./../models/hustlers";
 import { v4 as uuidv4 } from "uuid";
 
 export const getAllUsers = async (req: any, res: any) => {
@@ -31,9 +32,14 @@ export const createUser = async (req: any, res: any) => {
   try {
     const oldUser = await users.findOne({ phoneNumber });
     if (!oldUser) {
-      await newUser.save();
-      res.status(201);
-      return newUser;
+      const oldHustler = await hustlers.findOne({ phoneNumber });
+      if (oldHustler == null) {
+        await newUser.save();
+        res.status(201);
+        return newUser;
+      } else {
+        throw "User already registered as hustler!";
+      }
     } else {
       throw "User already exists!";
     }
