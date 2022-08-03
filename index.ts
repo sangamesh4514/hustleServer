@@ -21,9 +21,9 @@ mongoose
   } as ConnectOptions)
   .then(async () => {
     console.log("connected to database");
-    const serverPort = parseInt(process.env.FASTIFY_PORT || "");
+    const serverPort = parseInt(process.env.PORT || "");
     const port = Number.isInteger(serverPort) ? serverPort : 3000;
-    await fastify.listen({ port: port });
+    await fastify.listen({ port: port, host: "0.0.0.0" });
     console.log(`Server started at port ${port}`);
   })
   .catch((err) => {
