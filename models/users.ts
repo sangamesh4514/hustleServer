@@ -60,6 +60,9 @@ const usersSchema = new mongoose.Schema({
     coordinates: {
       type: [Number],
     },
+    name: {
+      type: String,
+    },
   },
 });
 

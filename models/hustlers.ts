@@ -65,6 +65,9 @@ const hustlersSchema = new mongoose.Schema({
     coordinates: {
       type: [Number],
     },
+    name: {
+      type: String,
+    },
   },
   skill: {
     type: String,
