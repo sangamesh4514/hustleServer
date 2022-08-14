@@ -102,17 +102,28 @@ const hustlersSchema = new mongoose.Schema({
     default: {
       value: 0,
       number: 0,
+      10: [],
+      9: [],
+      8: [],
+      7: [],
+      6: [],
+      5: [],
+      4: [],
+      3: [],
+      2: [],
+      1: [],
     },
   },
   comments: {
     type: [],
     default: [
-      {
-        rating: 0,
-        name: "",
-        userId: "",
-        comment: "",
-      },
+      // {
+      //   rating: 0,
+      //   name: "",
+      //   userId: "",
+      //   comment: "",
+      //   date: new Date(),
+      // },
     ],
   },
   verified: {

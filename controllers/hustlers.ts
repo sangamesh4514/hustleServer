@@ -10,18 +10,21 @@ export const getAllHustlers = async (req: any, res: any) => {
   }
 };
 export const getSortHustlers = async (req: any, res: any) => {
-  const { skill, city } = req.params;
-  console.log(skill, city);
   try {
-    if (skill) {
-      if (city) {
-        const hustlersData = hustlers.find({ skillCode: skill, city });
-        return hustlersData;
-      } else {
-        const hustlersData = hustlers.find({ skillCode: skill });
-        return hustlersData;
-      }
-    }
+    const { skill } = req.params;
+    const { coordinates, name, range } = req.body;
+    const radius = range / 6378.1;
+    console.log(skill, coordinates, range);
+    const hustlersData = hustlers.find({
+      skill: skill,
+      status: 1,
+      location: {
+        $geoWithin: {
+          $centerSphere: [[coordinates[0], coordinates[1]], radius],
+        },
+      },
+    });
+    return hustlersData;
   } catch (error) {
     return error;
   }
