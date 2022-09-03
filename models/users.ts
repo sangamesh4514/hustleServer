@@ -64,6 +64,10 @@ const usersSchema = new mongoose.Schema({
       type: String,
     },
   },
+  email: {
+    type: String,
+    default: "",
+  },
 });
 
 const users = mongoose.model("users", usersSchema);

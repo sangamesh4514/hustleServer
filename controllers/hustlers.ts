@@ -3,10 +3,10 @@ import users from "./../models/users";
 
 export const getAllHustlers = async (req: any, res: any) => {
   try {
-    const hustlersData = hustlers.find({});
+    const hustlersData = await hustlers.find({});
     return hustlersData;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 export const getSortHustlers = async (req: any, res: any) => {
@@ -14,8 +14,8 @@ export const getSortHustlers = async (req: any, res: any) => {
     const { skill } = req.params;
     const { coordinates, name, range } = req.body;
     const radius = range / 6378.1;
-    console.log(skill, coordinates, range);
-    const hustlersData = hustlers.find({
+    //console.log(skill, coordinates, range);
+    const hustlersData = await hustlers.find({
       skill: skill,
       status: 1,
       location: {
@@ -26,7 +26,7 @@ export const getSortHustlers = async (req: any, res: any) => {
     });
     return hustlersData;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 export const getHustler = async (req: any, res: any) => {
@@ -34,12 +34,12 @@ export const getHustler = async (req: any, res: any) => {
   try {
     const hustler = await hustlers.findOne({ userId });
     if (hustler == null) {
-      throw "User not found!!";
+      throw { message: "No hustler found", subCode: 404 };
     } else {
       return hustler;
     }
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
@@ -64,7 +64,7 @@ export const createHustler = async (req: any, res: any) => {
         await users.findOneAndDelete({ userId });
         res.status(200).send(newHustler);
       } else {
-        res.status(400).send("UserName already Exists!");
+        throw { message: "UserName already Exists!", subCode: 203 };
       }
     }
   } catch (error) {
@@ -89,20 +89,20 @@ export const updateHustler = async (req: any, res: any) => {
       return hustler;
     }
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
 export const deleteHustler = async (req: any, res: any) => {
   const { userId } = req.params;
   try {
-    const deletedHustler = hustlers.findOneAndDelete({ userId });
+    const deletedHustler = await hustlers.findOneAndDelete({ userId });
     if (deletedHustler == null) {
       throw "No such hustler to delete!";
     } else {
       return deletedHustler;
     }
   } catch (error) {
-    return error;
+    throw error;
   }
 };

@@ -73,6 +73,10 @@ const hustlersSchema = new mongoose.Schema({
     type: String,
     default: "volunteer",
   },
+  address: {
+    type: String,
+    default: "",
+  },
   skillId: {
     type: Number,
     default: 0,
@@ -97,36 +101,27 @@ const hustlersSchema = new mongoose.Schema({
     type: String,
     default: "Hard worker!",
   },
-  ratings: {
-    type: {},
-    default: {
-      value: 0,
-      number: 0,
-      10: [],
-      9: [],
-      8: [],
-      7: [],
-      6: [],
-      5: [],
-      4: [],
-      3: [],
-      2: [],
-      1: [],
-    },
+  ratingValue: {
+    type: Number,
+    default: 0,
   },
-  comments: {
-    type: [],
-    default: [
-      // {
-      //   rating: 0,
-      //   name: "",
-      //   userId: "",
-      //   comment: "",
-      //   date: new Date(),
-      // },
-    ],
+  ratingsCount: {
+    type: Number,
+    default: 0,
+  },
+  hideComments: {
+    type: Number,
+    default: 0,
   },
   verified: {
+    type: Number,
+    default: 0,
+  },
+  email: {
+    type: String,
+    default: "",
+  },
+  experience: {
     type: Number,
     default: 0,
   },

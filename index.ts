@@ -5,12 +5,14 @@ import mongoose, { ConnectOptions } from "mongoose";
 import userRoutes from "./routes/userRoutes";
 import authRoutes from "./routes/authRoutes";
 import hustlerRoutes from "./routes/hustlerRoutes";
+import commentRoutes from "./routes/commentRoutes";
 
 const fastify = Fastify();
 fastify.register(fastifyCors);
 fastify.register(authRoutes, { prefix: "/auth" });
 fastify.register(userRoutes, { prefix: "/users" });
 fastify.register(hustlerRoutes, { prefix: "/hustlers" });
+fastify.register(commentRoutes, { prefix: "/comments" });
 
 const CONNECTION_URL = process.env.CONNECTION_URL || "";
 

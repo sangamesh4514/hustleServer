@@ -4,10 +4,10 @@ import { v4 as uuidv4 } from "uuid";
 
 export const getAllUsers = async (req: any, res: any) => {
   try {
-    const usersData = users.find({});
+    const usersData = await users.find({});
     return usersData;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
@@ -16,12 +16,12 @@ export const getUser = async (req: any, res: any) => {
   try {
     const user = await users.findOne({ userId });
     if (user == null) {
-      throw "User not found!!";
+      throw { message: "No user found", subCode: 404 };
     } else {
       return user;
     }
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
@@ -62,20 +62,20 @@ export const updateUser = async (req: any, res: any) => {
       return user;
     }
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
 export const deleteUser = async (req: any, res: any) => {
   const { userId } = req.params;
   try {
-    const deletedUser = users.findOneAndDelete({ userId });
+    const deletedUser = await users.findOneAndDelete({ userId });
     if (deletedUser == null) {
       throw "No such user to delete!";
     } else {
       return deletedUser;
     }
   } catch (error) {
-    return error;
+    throw error;
   }
 };
